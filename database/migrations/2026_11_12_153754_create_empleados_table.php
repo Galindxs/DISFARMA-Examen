@@ -11,8 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+    
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
+            $table->string('identidad');
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('correo');
+            $table->string('cargo');
+            $table->decimal('salario',10,2);
+            $table->date('fecha_ingreso');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }
