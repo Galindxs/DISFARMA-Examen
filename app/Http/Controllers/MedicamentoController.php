@@ -12,7 +12,8 @@ class MedicamentoController extends Controller
      */
     public function index()
     {
-        //
+        $medicamentos = medicamento::latest()->paginate(10);
+        return view('medicamentos.index', compact('medicamentos'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MedicamentoController extends Controller
      */
     public function create()
     {
-        //
+       return view('medicamentos.create');
     }
 
     /**
@@ -28,7 +29,24 @@ class MedicamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $request->validate([
+            'sku'               => 'unique',
+            'nombre'            => 'required|max:255',
+            'categoria'         => 'required|string',
+            'precio'            => 'required|numeric|min:1',
+            'costo'             => 'required|integer|min:0',
+            'inventario'        => 'numeric',
+            'imagen'            => 'nullable',
+            'laboratorio'       => 'string',
+            'fecha_vencimiento' => 'date',
+            'fecha_registro'    => 'date',
+            'numero_lote'       => 'numeric',
+        ]);
+
+        medicamento::create($request->all());
+
+        return redirect()->route('medicamentos.index')
+                         ->with('success', '¡Medicamento registrado exitosamente en el inventario!');
     }
 
     /**
@@ -44,7 +62,7 @@ class MedicamentoController extends Controller
      */
     public function edit(medicamento $medicamento)
     {
-        //
+        return view('medicamentos.edit', compact('medicamento'));
     }
 
     /**
@@ -52,7 +70,24 @@ class MedicamentoController extends Controller
      */
     public function update(Request $request, medicamento $medicamento)
     {
-        //
+         $request->validate([
+            'sku'               => '',
+            'nombre'            => 'required|max:255',
+            'categoria'         => 'required|string',
+            'precio'            => 'required|numeric|min:1',
+            'costo'             => 'required|integer|min:0',
+            'inventario'        => 'numeric',
+            'imagen'            => 'nullable',
+            'laboratorio'       => 'string',
+            'fecha_vencimiento' => 'date',
+            'fecha_registro'    => 'date',
+            'numero_lote'       => 'numeric',
+        ]);
+
+        $medicamento->update($request->all());
+
+        return redirect()->route('medicamentos.index')
+                         ->with('success', '¡Medicamento actualizado exitosamente en el inventario!');
     }
 
     /**
@@ -60,6 +95,9 @@ class MedicamentoController extends Controller
      */
     public function destroy(medicamento $medicamento)
     {
-        //
+        $medicamento->delete();
+
+        return redirect()->route('medicamentos.index')
+                         ->with('success', '¡Producto eliminado del inventario!');
     }
 }

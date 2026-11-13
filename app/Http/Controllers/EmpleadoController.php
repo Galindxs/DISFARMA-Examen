@@ -12,7 +12,8 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = empleado::latest()->paginate(10);
+        return view('empleados.index', compact('empleados'));
     }
 
     /**
@@ -20,7 +21,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('empleados.create');
     }
 
     /**
@@ -28,7 +29,7 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
