@@ -20,6 +20,11 @@
                         <i class="bi bi-shield-check"></i>
                         <span>Plataforma interna de gestión farmacéutica</span>
                     </div>
+                    <br>
+                    <div class="login-brand-footer">
+                        <small>correo:      admin@disfarma.hn</small>
+                        <small>password:    Disfarma2026*</small>
+                    </div>
                 </div>
             </div>
 
